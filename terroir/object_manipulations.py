@@ -1,7 +1,7 @@
 import numpy as np
 from mmm_python import *
-import user.terroir as ter
-from user.terroir.music_symbols import Clef
+import mmm_terroir.terroir as ter
+from mmm_terroir.terroir.music_symbols import Clef
 
 
 # [onset, [pitch, velocity, duration]]

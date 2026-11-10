@@ -1,10 +1,10 @@
 from math import modf
 import numpy as np
 import music21 as m21
-from user.mmm_terroir.uis.generated import roll_view
+from mmm_terroir.uis.generated import roll_view
 from PySide6 import QtWidgets
-from user.mmm_terroir.terroir.music_symbols import *
-from user.mmm_terroir.terroir.object_manipulations import *
+from mmm_terroir.terroir.music_symbols import *
+from mmm_terroir.terroir.object_manipulations import *
 
 class Roll():
     events: list
@@ -290,7 +290,7 @@ class Roll():
     def show(self, clefs=[Clef.TREBLE, Clef.BASS], mmm_audio_instance=None, data_handling=None):
         default = False
         if not mmm_audio_instance:
-            mmm_audio_instance = MMMAudio(256 * 4, num_output_channels=2, graph_name="TerPlayerOsc", package_name="user.TerPlayers")
+            mmm_audio_instance = MMMAudio(256 * 4, num_output_channels=2, graph_name="TerPlayerOsc", package_name="mmm_terroir.TerPlayers")
             mmm_audio_instance.start_audio()
             default = True
         

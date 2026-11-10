@@ -1,6 +1,6 @@
-from user.mmm_terroir.terroir.music_symbols import *
+from mmm_terroir.terroir.music_symbols import *
 
-import user.mmm_terroir.terroir.ter_theme as theme
+import mmm_terroir.terroir.ter_theme as theme
 from math import modf
 
 

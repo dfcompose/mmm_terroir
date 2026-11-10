@@ -1,6 +1,6 @@
 from mmm_audio import *
-from user.TerPlayers.TerPolys import TerOscPoly
-from user.synths.ObjectBasedAudio import *
+from mmm_terroir.TerPlayers.TerPolys import TerOscPoly
+
 
 struct TerPlayerOsc(Movable, Copyable):
     var poly: Poly

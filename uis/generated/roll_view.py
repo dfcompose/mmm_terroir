@@ -7,11 +7,11 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
-from user.terroir import *
+from mmm_terroir import *
 import numpy as np
-# from user.terroir.TerPlayer import TerPlayer
-from user.terroir.music_symbols import *
-from user.pyside_guis.notes import *
+
+from mmm_terroir.terroir.music_symbols import *
+from mmm_terroir.pyside_guis.notes import *
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QEvent, QLocale,
     QMetaObject, QObject, QPoint, QPropertyAnimation, QRect,
     QSize, QTime, QUrl, QVariantAnimation, Qt, QLine)
