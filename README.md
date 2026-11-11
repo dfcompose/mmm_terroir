@@ -41,3 +41,14 @@ roll.show()
 ```
 
 This will open proportional notation of the roll that can be played back using MMMAudio.
+
+
+## TODO
+
+Open roll views in subprocess so rolls can be edited on the python side.
+
+More music21 analysis integration
+
+Better quantization
+
+Better legato

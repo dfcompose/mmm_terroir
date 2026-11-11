@@ -1,7 +1,7 @@
 import numpy as np
 from mmm_python import *
-import mmm_terroir.terroir as ter
-from mmm_terroir.terroir.music_symbols import Clef
+import mmm_terroir.core as ter
+from mmm_terroir.core.music_symbols import Clef
 
 
 # [onset, [pitch, velocity, duration]]
@@ -28,9 +28,7 @@ class RollSeq:
             
         self._concat_rolls()
         
-        if callback:
-            import types
-            self.seq_roll._handle_metadata = types.MethodType(callback, self.seq_roll)
+        
             
         
     

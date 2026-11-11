@@ -9,7 +9,7 @@ class Bar:
 
 def format_rhythm(tempo: float, rhythms: list) -> tuple:
     """
-    Returns a tuple of onsets and durations for the given rhythm
+    Returns a tuple of onsets and durations for the given rhythm in the given tempo
     """
     out = ([], []) # onsets, durations
     total_dur = 0

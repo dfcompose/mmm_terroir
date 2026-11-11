@@ -1,2 +1,2 @@
-from .terroir import *
+from .core import *
 from .TerPlayers import *

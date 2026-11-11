@@ -2,8 +2,8 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QLabel
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Property, Qt, Signal, QPoint, QMargins
 from PySide6.QtGui import QFont, QMouseEvent, QPainter, QPen, QColor, QPainterPath, QPixmap, QBrush
-from mmm_terroir.terroir.music_symbols import *
-from mmm_terroir.terroir.graphics_helpers import *
+from mmm_terroir.core.music_symbols import *
+from mmm_terroir.core.graphics_helpers import *
 from math import modf
 
     

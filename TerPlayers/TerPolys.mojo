@@ -180,6 +180,64 @@ struct TerFMPoly(PolyObject):
             return MFloat[2](0.0)
 
 
+struct TerFMPolySimple(PolyObject):
+    var world: World
+    var carrier: Osc[1, interp=Interp.linear]
+    var modulator: Osc[1, interp=Interp.linear]
+    var freq: Float64
+    var mod_freq: Float64
+    var mod_width: Float64
+    var dur: Float64
+    var vol: Float64
+    var active: Bool
+    var trigger : Bool
+    var event : List[Float64]
+    var phase : MFloat[1]
+    var env : Array[Tuple[Float64, Float64], 4]
+    var env_curve: Float64
+    var pan : Float64
+    
+    def check_active(mut self) -> Bool:
+        return self.active
+
+    def set_gate(mut self, trigger: Bool):
+        
+        self.active = trigger
+        self.phase = 0.0
+
+    def __init__(out self, world: World):
+        self.world = world
+        self.freq = 440
+        self.mod_freq = 20
+        self.mod_width = 10
+        self.dur = 1
+        self.vol = 0.5
+        self.carrier  = Osc[1, interp=Interp.linear](self.world)
+        self.modulator = Osc[1, interp=Interp.linear](self.world)
+        self.active = False
+        self.trigger = False
+        self.event = List[Float64]()
+        self.phase = MFloat[1](0.0)
+        self.env : Array[Tuple[Float64, Float64], 4] = [(0.0, 0.0), (0.01, 1.0), (0.9, 1.0), (1.0, 0.0)]
+        self.env_curve : Float64 = 0.0
+        self.pan = 0.0
+    
+
+    def next(mut self) -> MFloat[2]:
+        
+        if self.active:
+            # var env = self.env.next(self.trigger)
+            var env = env[win_type=WindowType.sine, interp=Interp.linear](self.world, self.phase, self.env, self.env_curve) * self.vol
+            var mod = self.modulator.next(self.mod_freq) * self.mod_width 
+            var sig = self.carrier.next(self.freq + mod)
+            
+            var out = pan2(sig * env, self.pan) 
+            self.phase += 1.0/self.world[].sample_rate/self.dur
+            self.active = self.phase <= 1.0
+            return out
+        else:
+            
+            return MFloat[2](0.0)
 
 
 struct TerFMVBAP(Movable, Copyable):

@@ -3,9 +3,14 @@ import numpy as np
 import music21 as m21
 from mmm_terroir.uis.generated import roll_view
 from PySide6 import QtWidgets
-from mmm_terroir.terroir.music_symbols import *
-from mmm_terroir.terroir.object_manipulations import *
+from mmm_terroir.core.music_symbols import *
+from mmm_terroir.core.RollSeq import *
+from enum import StrEnum
 
+class TerPlayer(StrEnum):
+    OSC = "TerPlayerOsc"
+    FM = "TerPlayerFM"
+    
 class Roll():
     events: list
     clef: str
@@ -287,18 +292,50 @@ class Roll():
                     event[0] = round(event[0] * (min_div/beat_dur)) / min_div
                     
             
-    def show(self, clefs=[Clef.TREBLE, Clef.BASS], mmm_audio_instance=None, data_handling=None):
+    def show(self, clefs=[Clef.TREBLE, Clef.BASS], mmm_audio_instance=None, data_handling=None, default_player = TerPlayer.OSC):
         default = False
         if not mmm_audio_instance:
-            mmm_audio_instance = MMMAudio(256 * 4, num_output_channels=2, graph_name="TerPlayerOsc", package_name="mmm_terroir.TerPlayers")
+            mmm_audio_instance = MMMAudio(256 * 4, num_output_channels=2, graph_name=default_player, package_name="mmm_terroir.TerPlayers")
             mmm_audio_instance.start_audio()
             default = True
         
-        if not data_handling:
-            def custom_handling(data:dict):
-                arr = [0.05, 0.6, 1.0]
+        if not data_handling and default_player == TerPlayer.OSC:
+            def custom_handling(data:dict): # type: ignore
+                if not "env" in data:
+                    data["env"] = [0.05, 0.6]
+                
+                if not "env_curve" in data:
+                    data["env_curve"] = 1.0
+                
+                
+                arr = [data["env"][0], data["env"][1], data["env_curve"]]
                 return arr
             data_handling = custom_handling
+        elif not data_handling and default_player == TerPlayer.FM:
+            def custom_handling(data:dict):
+                
+                if not "env" in data:
+                    data["env"] = [0.05, 0.6]
+                
+                if not "env_curve" in data:
+                    data["env_curve"] = 1.0
+                
+                if not "rate" in data:
+                    data["rate"] = 1.0
+                
+                if not "width" in data:
+                    data["width"] = 10
+                
+                if not "start" in data:
+                    data["start"] = data["width"]
+                
+                if not "pan" in data:
+                    data["pan"] = 0
+                
+                arr = [data["env"][0], data["env"][1], data["env_curve"], data["rate"], data["width"], data["start"], data["pan"]]
+                return arr
+            data_handling = custom_handling
+        
         
         if not QApplication.instance():
                 app = QApplication([])
@@ -638,3 +675,4 @@ class Roll():
 
         return self
 
+    

@@ -1,5 +1,5 @@
 from mmm_audio import *
-from user.TerPlayers.TerPolys import TerFMPoly
+from mmm_terroir.TerPlayers.TerPolys import TerFMPoly
 
 
 struct TerPlayerFM(Movable, Copyable):

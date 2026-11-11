@@ -8,9 +8,10 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 from mmm_terroir import *
+import os
 import numpy as np
 
-from mmm_terroir.terroir.music_symbols import *
+from mmm_terroir.core.music_symbols import *
 from mmm_terroir.pyside_guis.notes import *
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QEvent, QLocale,
     QMetaObject, QObject, QPoint, QPropertyAnimation, QRect,
@@ -103,7 +104,7 @@ class Ui_MainWindow(object):
 
         QMetaObject.connectSlotsByName(MainWindow)
         self.scheduler = Scheduler()
-        QFontDatabase.addApplicationFont("user/terroir/assets/Bravura.otf")
+        QFontDatabase.addApplicationFont(os.getcwd() + "/mmm_terroir/core/assets/Bravura.otf")
         self.ledger_pen = QPen()
         self.ledger_pen.setWidth(2)
         self.ledger_pen.setStyle(Qt.PenStyle.SolidLine)
@@ -141,7 +142,7 @@ class Ui_MainWindow(object):
         pass
     
     def draw_notation(self, events=[], clefs=[Clef.TREBLE]):
-        QFontDatabase.addApplicationFont("user/terroir/assets/Bravura.otf")
+        QFontDatabase.addApplicationFont(os.getcwd() +"/mmm_terroir/core/assets/Bravura.otf")
         padding_l = 20
         padding_t = 20
         padding_b = 20
